@@ -1,0 +1,8 @@
+version: "3"
+
+include:
+  - path:
+      - ./base/gateway/compose.yml
+      - ./project/www/compose.yml
+      # - ./base/sql-db/compose.yml
+    env_file: .env.boot

@@ -1,0 +1,43 @@
+services:
+  gateway:
+    image: traefik:v2.10
+    command:
+      - --log.level=INFO
+      - --accesslog=true
+      - --accesslog.bufferingsize=100
+      - --accesslog.filepath=/logs/access.log
+      - --api.insecure=true
+      - --api.dashboard=true
+      - --providers.docker=true
+      # - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+      - --entrypoints.webtls.address=:443
+      - --certificatesresolvers.tlsresolve.acme.email=${ACME_EMAIL}
+      - --certificatesresolvers.tlsresolve.acme.storage=/acme/acme.json
+      - --certificatesresolvers.tlsresolve.acme.tlschallenge=true
+      - --certificatesresolvers.tlsresolve.acme.httpchallenge=true
+      - --certificatesresolvers.tlsresolve.acme.httpchallenge.entrypoint=web
+      # metrics
+      - --metrics.prometheus=true
+      - --metrics.prometheus.addrouterslabels=true
+      - --metrics.prometheus.headerlabels.useragent=User-Agent
+      # 动态配置
+      - --providers.file.directory=/conf
+      - --providers.file.watch=true
+      # 插件
+      - --experimental.plugins.fail2ban.modulename=github.com/tomMoulard/fail2ban
+      - --experimental.plugins.fail2ban.version=v0.6.6
+      - --experimental.plugins.redirect2https.modulename=github.com/sunalwaysknows/redirect2https
+      - --experimental.plugins.redirect2https.version=v0.0.7
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+      # - "2222:2222"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./etc/:/etc/traefik/
+      - ./conf/:/conf/
+      - ./acme/:/acme/
+      - ./logs/:/logs/

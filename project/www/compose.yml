@@ -1,0 +1,20 @@
+services:
+  www:
+    image: node:20
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.www.rule=Host(`www.xxxx.top`) || Host(`xxxx.top`)"
+      - "traefik.http.services.www.loadbalancer.server.port=8080"
+      - "traefik.http.routers.www.priority=1" # 权重
+      - "traefik.http.routers.www.entrypoints=webtls" # 下面的是申请https证书，并且启动端口
+      - "traefik.http.routers.www.tls=true"
+      - "traefik.http.routers.www.tls.certresolver=tlsresolve"
+      # - "traefik.http.routers.www.middlewares=gateway-safe@file"
+    env_file:
+      - .env
+    restart: always
+    working_dir: /project/
+    volumes:
+      - ./.repo/:/project/
+      - ~/.ssh:/root/.ssh
+    # command: bash -c "npm i && npm run docs:dev"

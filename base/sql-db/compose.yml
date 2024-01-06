@@ -1,0 +1,9 @@
+services:
+  sql-db:
+    image: mariadb:latest
+    restart: always
+    volumes:
+      - ./conf.d/:/etc/mysql/conf.d
+      - ./repo/mysql/:/var/lib/mysql
+    ports:
+      - "3306:3306"

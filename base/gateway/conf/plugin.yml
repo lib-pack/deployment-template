@@ -1,0 +1,22 @@
+http:
+    middlewares:
+        gateway-safe:
+            plugin:
+                fail2ban:
+                    logLevel: "INFO"
+                    # blacklist:
+                    #     ip:
+                    #       - "123.117.170.156"
+                    whitelist:
+                        ip:
+                          - "123.117.170.156"
+                    # rules:
+                    #   urlregexps:
+                    #   - regexp: "/no"
+                    #     mode: block
+                    #   - regexp: "/yes"
+                    #     mode: allow
+                    #   bantime: "3h"
+                    #   findtime: "10m"
+                    #   maxretry: 4
+                    #   enabled: true

@@ -1,0 +1,19 @@
+services:
+  grafana:
+    image: grafana/grafana-enterprise
+    labels:
+      - "traefik.enable=false"
+      - "traefik.http.routers.grafana.entrypoints=web"
+      # - "traefik.http.routers.grafana.entrypoints=webtls"
+      # - "traefik.http.routers.grafana.rule=Host(`shop.notetron.top`)"
+      - "traefik.http.routers.grafana.rule=PathPrefix(`/`)"
+      - "traefik.http.services.grafana.loadbalancer.server.port=9090"
+      # - "traefik.http.services.grafana.loadbalancer.server.port=9443"
+      - "traefik.http.routers.grafana.priority=1"
+      # - "traefik.http.routers.grafana.tls=true"
+      # - "traefik.http.routers.grafana.tls.certresolver=shopresolver"
+    restart: always
+    volumes:
+      - ./grafana.ini:/etc/grafana/grafana.ini
+    ports:
+      - "8000:3000"
