@@ -37,7 +37,7 @@ services:
       # - "2222:2222"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./etc/:/etc/traefik/
-      - ./conf/:/conf/
-      - ./acme/:/acme/
-      - ./logs/:/logs/
+      - $PWD/project/gateway/etc/:/etc/traefik/
+      - $PWD/project/gateway/conf/:/conf/
+      - $PWD/project/gateway/acme/:/acme/
+      - $PWD/project/gateway/logs/:/logs/

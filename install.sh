@@ -8,10 +8,11 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-source "project/${project_name}/boot.sh"
+source "project/${project_name}/hook_install.sh" && \
 
-echo "[INFO] clone $REPO_URL";
-# git clone $REPO_URL project/${project_name}/repo
+echo "[INFO] clone $REPO_URL" && \
+git clone $REPO_URL project/${project_name}/repo && \
 
-sh start.sh "${project_name}"
+bash start.sh "${project_name}" && \
+echo "[INFO] install ${project_name} success."
 

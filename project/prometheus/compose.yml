@@ -15,6 +15,6 @@ services:
       # - "traefik.http.routers.prom.tls.certresolver=shopresolver"
     restart: always
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - $PWD/project/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "8000:9090"

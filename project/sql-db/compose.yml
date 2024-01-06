@@ -3,7 +3,7 @@ services:
     image: mariadb:latest
     restart: always
     volumes:
-      - ./conf.d/:/etc/mysql/conf.d
-      - ./repo/mysql/:/var/lib/mysql
+      - $PWD/project/sql-db/conf.d/:/etc/mysql/conf.d
+      - $PWD/project/sql-db/repo/mysql/:/var/lib/mysql
     ports:
       - "3306:3306"

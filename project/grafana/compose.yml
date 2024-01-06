@@ -14,6 +14,6 @@ services:
       # - "traefik.http.routers.grafana.tls.certresolver=shopresolver"
     restart: always
     volumes:
-      - ./grafana.ini:/etc/grafana/grafana.ini
+      - $PWD/project/grafana/grafana.ini:/etc/grafana/grafana.ini
     ports:
       - "8000:3000"
